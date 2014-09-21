@@ -12,7 +12,7 @@ $(document).ready(function(){
         };
         console.log(el);
         $.ajax({
-            url: 'http://localhost:1337/' + el.collection + '/find/?' + el.collectionAttribute + '=' + $('#' + el.id).val()
+            url: 'http://dli-asset-checkout.herokuapp.com/' + el.collection + '/find/?' + el.collectionAttribute + '=' + $('#' + el.id).val()
         }).done(function(data){
             console.log(data);
             console.log(el);
