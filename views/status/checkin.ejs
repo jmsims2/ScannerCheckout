@@ -1,0 +1,62 @@
+<div class="container">
+    <% if(flash && flash.err) { %>
+    <ul class="alert alert-danger">
+        <% Object.keys(flash.err).forEach(function(error) { %>
+        <li><%- JSON.stringify(flash.err[error]) %></li>
+        <% }) %>
+    </ul>
+    <% } %>
+    <form action="/status/checkInAsset" method="post" class="form-inline text-center">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="input-group input-group-lg input-hor-padding">
+                        <input name="checkin_emp_id" id="employee-input" data-collection="employee" data-collection-attribute="emp_id" type="text" class="form-control input-padding scan-app-input-fields" placeholder="Employee">
+                        <input name="checkin_emp_name" id="employee-input-name" data-collection="employee" data-collection-attribute="emp_id" type="text" class="hidden" placeholder="Employee">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="input-group input-group-lg input-hor-padding">
+                        <textarea name="assets" id="textbox" class="form-control input-padding textarea-checkin" placeholder="Equipment"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="input-group input-group-lg input-hor-padding">
+                            <button class="btn btn-xlarge btn-primary input-padding" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Checked In Equipment</h3>
+            <table class="table table-striped sortable">
+                <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Equipment</th>
+                    <th>Checkin Time</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% _.each(status, function(status) { %>
+                <tr data-id="<%= status.id %>" data-model="status" %>
+                <td><%= status.checkout_emp_name %> </td>
+                <td><%= status.asset_name %> </td>
+                <td><%= new Date(status.checkin_time).toLocaleTimeString() %></td>
+                <td><%= status.asset_status %></td>
+                </tr>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
